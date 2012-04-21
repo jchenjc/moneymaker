@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Rails moneymaker: production" product="" version="" jdbc-version="" driver-name="" driver-version="" uuid="445cfae8-3027-4e85-a938-50549565c99c">
+    <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+    <jdbc-url>jdbc:postgresql:moneymaker_production</jdbc-url>
+    <libraries>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine32/config/jdbc-drivers/postgresql-driver-license.txt</url>
+      </library>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine32/config/jdbc-drivers/postgresql-9.0-801.jdbc4.jar</url>
+      </library>
+    </libraries>
+  </data-source>
+</component>
