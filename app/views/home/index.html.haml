@@ -1,0 +1,183 @@
+.comp_name
+  %h1 Google
+  %span#prediction Current Prediction is UP
+.clear
+
+:javascript
+  $(function () {
+      var chart,
+          chart2; // globally available
+
+      $(document).ready(function() {
+          options = {
+                      chart: {
+                          renderTo: 'fig1',
+                          type: 'bar'
+                      },
+                      title: {
+                          text: 'Weekly TweetSentiment for Google'
+                      },
+                      subtitle: {
+                          text: 'Source: Twitter Public API'
+                      },
+                      xAxis: [{
+                          categories: [],
+                          reversed: false
+                      }, { // mirror axis on right side
+                          opposite: true,
+                          reversed: false,
+                          categories: [],
+                          linkedTo: 0
+                      }],
+                      yAxis: {
+                          title: {
+                              text: null
+                          },
+                          labels: {
+                              formatter: function(){
+                                  return Math.abs(this.value);
+                              }
+                          },
+                          min: 0,
+                          max: 0
+                      },
+                      plotOptions: {
+                          series: {
+                              stacking: 'normal'
+                          }
+                      },
+                      tooltip: {
+                          formatter: function(){
+                              return '<b>' + this.point.category +'</b><br/>'+
+                                  'Num of ' + this.series.name + ': '+ Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                          }
+                      },
+                      series: [{
+                          name: 'Positive',
+                          data: []
+                          }, {
+                          name: 'Negative',
+                          data: []
+                      }]
+                    };
+          options2 = {
+                        chart: {
+                            renderTo: 'fig2',
+                            type: 'spline'
+                        },
+                        title: {
+                            text: 'Total Volume of Tweets: Google'
+                        },
+                        subtitle: {
+                            text: 'Source: Twitter Public API'
+                        },
+                        xAxis: {
+                            categories: []
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Num of Tweets'
+                            },
+                            labels: {
+                                formatter: function() {
+                                    return this.value
+                                }
+                            }
+                        },
+                        tooltip: {
+                            crosshairs: {
+                                width: 2,
+                                color: 'gray',
+                                dashStyle: 'shortdot'
+                            },
+                            formatter: function(){
+                                            return '<b>' + this.point.category +'</b><br/>'+
+                                                  'Total Tweets: '+ Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                                        }
+                        },
+                        plotOptions: {
+                            spline: {
+                                marker: {
+                                    radius: 4,
+                                    lineColor: '#666666',
+                                    lineWidth: 1
+                                }
+                            }
+                        },
+                        series: [{
+                            name: 'Google',
+                            marker: {
+                                symbol: 'square'
+                            },
+                            data: []
+                        }]
+                    };
+
+          $.get('pos_neg_bar.csv', function(data) {
+              // Split the lines
+              var lines = data.split('\n'),
+                  len = lines.length,
+                  dates = [],
+                  pos = [],
+                  negs = [],
+                  max = 0,
+                  dates = [],
+                  total = [];
+              // Iterate over the lines and add categories or series
+              $.each(lines, function(lineNo, line) {
+                var items = line.split(',');
+
+                if (lineNo != 0 && lineNo != len - 1) {
+                  $.each(items, function(itemNo, item) {
+                    if (itemNo == 0) {
+                      dates.unshift(item);
+                    } else if (itemNo == 1) {
+                      pos.unshift(parseInt(item, 10));
+                    } else if (itemNo == 2) {
+                      negs.unshift(parseInt(item, 10));
+                    }
+                  });
+                }
+              });
+
+              max = Math.max(Math.max.apply(Math, pos), Math.max.apply(Math, negs)) + 5;
+              options.xAxis[0].categories = dates;
+              options.xAxis[1].categories = dates;
+              options.series[0].data = pos.map(function(val) {return -1*val;});
+              options.series[1].data = negs;
+              options.yAxis.min = -1 * max;
+              options.yAxis.max = max;
+              // Create the chart
+              chart = new Highcharts.Chart(options);
+
+              // Iterate over the lines and add categories or series
+              $.each(lines, function(lineNo, line) {
+                var items = line.split(',');
+                if (lineNo != 0 && lineNo != len - 1) {
+                  var elem;
+                  $.each(items, function(itemNo, item) {
+                    if (itemNo == 0) {
+                      dates.push(item);
+                    } else if (itemNo == 4) {
+                      elem = {
+                              y: parseInt(item, 10),
+                              marker: {
+                                symbol: 'url(stock_index_up.png)'
+                              }
+                             };
+                      if (items[5] == 0) {
+                        elem.marker.symbol = 'url(stock_index_down.png)'
+                      }
+                      total.push(elem);
+                    }
+                  });
+                }
+              });
+              max = Math.max(Math.max.apply(Math, total), Math.max.apply(Math, total)) + 5;
+              options2.xAxis.categories = dates;
+              options2.series[0].data = total;
+              // Create the chart
+              chart2 = new Highcharts.Chart(options2);
+            }, "text");
+      });
+  });
