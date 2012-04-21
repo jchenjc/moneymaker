@@ -16,7 +16,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem "twitter-bootstrap-rails"
 end
-
+gem 'heroku'
 gem 'jquery-rails'
 
 group :development do
