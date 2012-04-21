@@ -6,7 +6,6 @@ gem 'rails', '3.1.1'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'therubyracer'
-gem 'sqlite3'
 gem 'haml-rails'
 
 # Gems used only for assets and not required
@@ -22,6 +21,7 @@ gem 'jquery-rails'
 
 group :development do
   gem 'erb2haml'
+  gem 'sqlite3'
 end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
