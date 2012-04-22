@@ -28,22 +28,22 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand{:href => "#"}Moneymaker
+          = link_to "MoneyMaker", root_path, :class => "brand"
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Google", "/"
-              %li= link_to "Zynga", "/"
-              %li= link_to "Microsoft", "/"
-              %li= link_to "Intel", "/"
-              %li= link_to "Yahoo", "/"
-              %li= link_to "Nintendo", "/"
+              %li= link_to "Google", root_path
+              %li= link_to "Zynga", zynga_path
+              %li= link_to "Microsoft", microsoft_path
+              %li= link_to "Intel", intel_path
+              %li= link_to "Yahoo", yahoo_path
+              %li= link_to "Nintendo", nintendo_path
 
     .container
       .content
         .row
           .span12
             = yield
-            .row
+            .row#plots
               .span6#fig1
               .span6#fig2
 

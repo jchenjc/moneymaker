@@ -1,5 +1,10 @@
 Moneymaker::Application.routes.draw do
   get "home/index"
+  get "nintendo" => "home", :as => :nintendo
+  get "yahoo" => "home", :as => :yahoo
+  get "microsoft" => "home", :as => :microsoft
+  get "zynga" => "home", :as => :zynga
+  get "intel" => "home", :as => :intel
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
