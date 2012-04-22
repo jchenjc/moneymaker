@@ -2,7 +2,8 @@
   %h1 #{@company}
   %p#prediction
     Current Prediction:
-    %h1#flag UP
+    %h1.flag#up ⇑
+    %h1.flag#down ⇓
 .clear
 
 = render :partial => "graph", :locals => {:file => @file}

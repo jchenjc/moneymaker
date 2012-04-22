@@ -13,9 +13,16 @@
     font-size: 1.3em;
   }
 
-  #flag {
-    font-weight:lighter;
+  .flag {
     margin-left: 5px;
+  }
+
+  #up {
+    color: green;
+  }
+
+  #down {
+    color: red;
   }
 }
 
