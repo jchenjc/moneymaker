@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     # default to show Google Data
-    @company = 'Google ($GOOG)'
+    @company = 'Google (GOOG)'
     @actual = false
     @up = true
     @file = 'google_counts.csv'
