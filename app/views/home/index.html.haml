@@ -1,9 +1,21 @@
-#comp_name
-  %h1 #{@company}
-  %p#prediction
-    Current Prediction:
-    %h1.flag#up ⇑
-    %h1.flag#down ⇓
+.row#comp_name
+  .span8.offset2.top #{@company}
+.row#prediction
+  .span8.offset2.top
+    Today's Prediction:
+    - if @up
+      %span.flag#up ▴
+    - else
+      %span.flag#down ▾
+
+.row#actual
+  .span8.offset2.top
+    Actual:
+    - if @actual
+      %span.flag#up ▴
+    - else
+      %span.flag#down ▾
+
 .clear
 
-= render :partial => "graph", :locals => {:file => @file}
+= render :partial => "graph", :locals => { :file => @file , :company => @company }
