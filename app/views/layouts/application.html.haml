@@ -12,7 +12,7 @@
     / Le fav and touch icons
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
     = javascript_include_tag "http://code.highcharts.com/highcharts.js"
-    = javascript_include_tag "http://code.highcharts.com/modules/exporting.js"
+    -#= javascript_include_tag "http://code.highcharts.com/modules/exporting.js"
 
     %link{:href => "images/favicon.ico", :rel => "shortcut icon"}/
     %link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}/
@@ -40,21 +40,19 @@
 
     .container
       .content
-        .row
-          .span12
-            = yield
-            .row#plots
-              .span6#fig1
-              .span6#fig2
+        = yield
+        .row#plots
+          .span6.fig#fig1
+          .span6.fig#fig2
 
       %footer#footer
         %p#copyright &copy; Data Science Group #{Time.now.year}
         %p#authors
-          = link_to "Jian P. Chen", "http://coursekit.com/profile/17400"
+          = link_to "Muller Zhang", "http://coursekit.com/profile/18629"
           |
           = link_to "Linda Dai", "http://coursekit.com/profile/18212"
           |
-          = link_to "Muller Zhang", "http://coursekit.com/profile/18629"
+          = link_to "Jian P. Chen", "http://coursekit.com/profile/17400"
 
     /
       Le javascript

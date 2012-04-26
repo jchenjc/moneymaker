@@ -2,28 +2,31 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #comp_name {
-  h1 {
-    float: left;
-  }
+  font-weight: bold;
+}
 
-  #prediction {
-    float: left;
-    margin-top: 13px;
-    margin-left: 13px;
-    font-size: 1.3em;
-  }
+.top {
+  font-size: 3em;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
 
-  .flag {
-    margin-left: 5px;
-  }
+.info {
+  font-size: smaller;
+}
 
-  #up {
-    color: green;
-  }
+.flag {
+  margin-left: 5px;
+  font-size: larger;
+}
 
-  #down {
-    color: red;
-  }
+#up {
+  color: green;
+}
+
+#down {
+  color: red;
 }
 
 #plots {
@@ -42,4 +45,6 @@
 }
 #authors {
   margin-left: 14px;
+}
+.fig {
 }

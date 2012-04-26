@@ -1,8 +1,20 @@
-
 :javascript
   $(function () {
       var chart,
-          chart2; // globally available
+          chart2, // globally available
+          percentage = function(arr1, arr2) {
+                        var total;
+                        if (arr1.length != arr2.length) {
+                          return false;
+                        } else {
+                          for (var i=0; i<arr1.length; i++) {
+                            total = arr1[i] + arr2[i];
+                            arr1[i] = arr1[i] / total;
+                            arr2[i] = arr2[i] / total;
+                          }
+                          return true;
+                        }
+                      };
       $(document).ready(function() {
           options = {
                       chart: {
@@ -10,7 +22,7 @@
                           type: 'bar'
                       },
                       title: {
-                          text: 'Weekly TweetSentiment for Google'
+                          text: 'Weekly TweetSentiment'
                       },
                       subtitle: {
                           text: 'Source: Twitter Public API'
@@ -42,9 +54,10 @@
                           }
                       },
                       tooltip: {
+                          valueDecimals: 2,
                           formatter: function(){
                               return '<b>' + this.point.category +'</b><br/>'+
-                                  'Num of ' + this.series.name + ': '+ Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                                  this.series.name + ': '+ Highcharts.numberFormat(Math.abs(this.point.y)*100, 2) + '%';
                           }
                       },
                       series: [{
@@ -61,7 +74,7 @@
                             type: 'spline'
                         },
                         title: {
-                            text: 'Total Volume of Tweets: Google'
+                            text: 'Total Volume of Tweets'
                         },
                         subtitle: {
                             text: 'Source: Twitter Public API'
@@ -100,7 +113,7 @@
                             }
                         },
                         series: [{
-                            name: 'Google',
+                            name: '#{company}',
                             marker: {
                                 symbol: 'square'
                             },
@@ -134,8 +147,9 @@
                   });
                 }
               });
+              percentage(pos, negs);
 
-              max = Math.max(Math.max.apply(Math, pos), Math.max.apply(Math, negs)) + 5;
+              max = 1; //Math.max(Math.max.apply(Math, pos), Math.max.apply(Math, negs)) + 5;
               options.xAxis[0].categories = dates;
               options.xAxis[1].categories = dates;
               options.series[0].data = pos.map(function(val) {return -1*val;});
@@ -144,6 +158,8 @@
               options.yAxis.max = max;
               // Create the chart
               chart = new Highcharts.Chart(options);
+
+              dates = []
 
               // Iterate over the lines and add categories or series
               $.each(lines, function(lineNo, line) {
@@ -168,7 +184,7 @@
                   });
                 }
               });
-              max = Math.max(Math.max.apply(Math, total), Math.max.apply(Math, total)) + 5;
+              //max = Math.max(Math.max.apply(Math, total), Math.max.apply(Math, total)) + 5;
               options2.xAxis.categories = dates;
               options2.series[0].data = total;
               // Create the chart
